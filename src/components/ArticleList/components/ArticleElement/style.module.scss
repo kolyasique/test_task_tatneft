@@ -7,7 +7,6 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid lightgrey;
-    cursor: pointer;
     transition: ease-in-out 200ms;
 }
 
@@ -63,4 +62,20 @@
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden
+}
+
+
+.article_read_btn{
+    border:none;
+    background-color: #282c34;
+    padding: 5px;
+    border-radius:5px;
+    color:white;
+    cursor: pointer;
+    transition: ease-in-out 200ms;
+}
+.article_read_btn:hover{
+    scale:1.01;
+    background-color: #181b20;
+    transition: ease-in-out 200ms;
 }

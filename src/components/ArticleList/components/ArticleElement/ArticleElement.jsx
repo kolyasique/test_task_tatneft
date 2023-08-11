@@ -43,7 +43,7 @@ export default function ArticleElement({id, title, content, theme, author}) {
         
         
         <Link to={`/articlelist/${id}`}>
-            <button onClick={handleClick}>Прочитать</button>
+            <button onClick={handleClick} className={cl.article_read_btn}>Прочитать</button>
         </Link>
        
     </div>

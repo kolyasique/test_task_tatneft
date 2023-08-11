@@ -33,6 +33,7 @@ export default function Article() {
                         text:e.target.text.value
                     }} 
                     ))
+                    e.target.reset()
     }
 
     console.log(chosenArticleData)
@@ -45,7 +46,7 @@ export default function Article() {
         </div>
         <div className={cl.article_block_additional}>
             <div>Автор: {chosenArticleData.author}</div>
-            <div>Дата: {convertDate(chosenArticleData.created_at)}</div>
+            <div>{convertDate(chosenArticleData.created_at)}</div>
         </div>
 
         <div className={cl.article_block_comments}>
@@ -53,20 +54,24 @@ export default function Article() {
             <div className={cl.comments_block}>
                 {chosenArticleComments.length >0 ? (
                     chosenArticleComments?.map((el)=>{
-                        return(<div>{el.text}</div>)
+                        return(<div className={cl.comment_element}>
+                            <div className={cl.comment_element_author}>{el.author} написал:</div>
+                            <div className={cl.comment_element_text}>{el.text}</div>
+                          
+                            </div>)
                         
                     })
                 ):(
                     <h6>Комментариев нет, но вы можете оставить его первым!</h6>
                 )}
-                <form className={cl.comments_form} onSubmit={handleAddComment}>
-                    <input name='name' type="text" placeholder='Ваше имя' />
-                    <textarea name='text' type="textarea" placeholder='Комментарий'/>
-                <button type='submit' >Добавить комментарий</button>
-                </form>
                 
             </div>
         </div>
+                <form className={cl.comments_form} onSubmit={handleAddComment}>
+                    <input name='name' required maxLength={30} type="text" placeholder='Ваше имя' />
+                    <textarea name='text' required maxLength={300} type="textarea" placeholder='Комментарий'/>
+                    <button type='submit' className={cl.add_comment_btn}>Добавить комментарий</button>
+                </form>
     </div>
         </div>
   )

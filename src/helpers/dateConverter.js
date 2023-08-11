@@ -1,4 +1,3 @@
-// Конвертеры даты
 function rusufucateMonth(month) {
     let rusMonth;
     switch (month) {
@@ -48,6 +47,6 @@ function rusufucateMonth(month) {
     const time = [newDate.getHours(), newDate?.getMinutes()].map((x) => (x < 10 ? `0${x}` : x)).join(':');
     return `${newDate.getDate()} ${
       rusufucateMonth(newDate.getMonth() + 1)} ${
-      newDate.getFullYear()} | ${time}`;
+      newDate.getFullYear()}`;
   };
   

@@ -9,20 +9,17 @@ import React, { useEffect, useState } from 'react';
 import cl from './style.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVisible } from '../../store/articleFormSlice';
-import { addNewArticle, createArticle, updateThisArticle } from '../../store/articleListSlice';
-// import ModalTimer from '../UI/ModalTimer/ModalTimer';
-// import QuestionForm from '../QuestionForm/QuestionForm';
+import { createArticle, updateThisArticle } from '../../store/articleListSlice';
 
-// children,
 function AddArticleForm() {
     
-    const {inputs} = useSelector((state)=>state.articleForm)
+const {inputs} = useSelector((state)=>state.articleForm)
   const [form, setForm] = useState(inputs);
   const rootClasses = [cl.myModal];
-  const {visible, type, idForUpd} = useSelector((state)=>state.articleForm)
+  const { visible, type, idForUpd} = useSelector((state)=>state.articleForm)
   const dispatch = useDispatch()
 
-//   
+// const visible=trues
 useEffect(()=>{
     setForm(inputs)
 },[inputs, type])
@@ -30,9 +27,11 @@ useEffect(()=>{
 useEffect(()=>{
 console.log(type)
 },[])
+
 useEffect(()=>{
     console.log(form, type)
 },[form])
+
   if (visible) {
     rootClasses.push(cl.active);
   }
@@ -58,8 +57,12 @@ useEffect(()=>{
   return (
     <div className={rootClasses.join(' ')} onClick={() => dispatch(setVisible())}>
       <div className={cl.myModalContent} onClick={(e) => e.stopPropagation()}>
-        <h4>Добавить статью</h4>
-        {/* {children} */}
+      {type === 'CREATE' ? (
+                <h4>Добавить статью</h4>
+            ):(
+                <h4>Изменить статью</h4>
+            )}
+        
         <form className={cl.loginForm} onSubmit={handleSubmit}>
 
           <input 
@@ -71,7 +74,7 @@ useEffect(()=>{
           placeholder='Заголовок' 
            />
           
-          <input 
+          <textarea 
           type="text" 
           name='content'
           value={form.content}
@@ -102,7 +105,7 @@ useEffect(()=>{
             {type === 'CREATE' ? (
                 'Создать'
             ):(
-                'Изменить'
+                'Сохранить'
             )}
           </button>
           {/* <ToastContainer /> */}

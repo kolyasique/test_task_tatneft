@@ -131,7 +131,7 @@ const articleListSlice = createSlice({
     });
 
     builder.addCase(getAllComments.fulfilled, (state, action) => {
-        state.commentList = action.payload.sort((a,b)=>b.created_at - a.created_at)
+        state.commentList = action.payload.sort((a,b)=>b.id - a.id)
         state.loading = 'succeeded'
       });
     builder.addCase(getAllComments.pending, (state, action) => {
@@ -198,7 +198,7 @@ const articleListSlice = createSlice({
       });
 
       builder.addCase(addToChosenArticleComment.fulfilled, (state, action) => {
-        state.chosenArticleComments.push(action.payload.data)
+        state.chosenArticleComments.unshift(action.payload.data)
       });
       builder.addCase(addToChosenArticleComment.pending, (state, action) => {
         state.loading = 'pending'

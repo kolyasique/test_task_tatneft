@@ -1,0 +1,113 @@
+.myModal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background: rgba(4, 4, 4, 0.2); 
+    backdrop-filter: blur(3px); 
+    /* transition: 1000ms ease-out; */
+    /* -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=45);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=45);
+    filter:alpha(opacity=45); */
+    transition: 2s opacity;
+    z-index: 20;
+    
+}
+.myModalContent{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 350px;
+    height: 50%;
+    background: rgb(10 10 10 / 91%);
+    border-radius: 5px;
+    min-width: 250px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0px 0px 20px rgb(0 0 0 / 79%);
+    z-index: 20;
+}
+.myModalContent h2{
+    margin-bottom: 0;
+    font-size: 18px;
+    text-align: center;
+}
+.myModalContent h3{
+    font-size: 16px;
+}
+.myModalContent h4{
+    margin-top: 0;
+}
+.myModal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.threeP{
+	margin-left: 100px;
+}
+.loginForm{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 50%;
+}
+.loginForm input{
+    margin-bottom: 10px;
+}
+.formName{
+    text-align: center;
+}
+.formLabel{
+    font-size: 12px;
+    color: rgb(201, 201, 201);
+    text-align: center;
+}
+.loginFormButton{
+    display: flex;
+    border: none;
+    color: white;
+    background-color: #ea6622;
+    padding: 5px;
+    border-radius: 3px;
+    transition: ease-in-out 200ms;
+    margin: 10px;
+}
+.askInput{
+    display: flex;
+    width: 40%;
+}
+.loginFormButton:hover{
+    scale: 1.1;
+    box-shadow:  0px 0px 10px rgba(153, 153, 153, 0.5)
+}
+
+@media (max-width: 768px)  {
+    .myModal{
+        position:fixed;
+        /* overflow: auto; */
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .myModal.active {
+    /* display: flex; */
+/* width: 100%;
+    padding-left: 20px;
+    padding-right: 20px; */
+    align-items: center;
+    /* position: fix; */
+}
+    .myModalContent{
+        height: 350px;
+        width: 90%;
+        margin-right: 20px;
+        margin-left: 10px;
+    }
+}

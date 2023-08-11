@@ -1,43 +1,27 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useState } from 'react';
-// import 'react-toastify/dist/ReactToastify.css';
-// import { ToastContainer } from 'react-toastify';
-// import { showToast } from '../../../../lib/toastify';
 import cl from './style.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVisible } from '../../store/articleFormSlice';
 import { createArticle, updateThisArticle } from '../../store/articleListSlice';
 
 function AddArticleForm() {
-    
-const {inputs} = useSelector((state)=>state.articleForm)
-  const [form, setForm] = useState(inputs);
-  const rootClasses = [cl.myModal];
-  const { visible, type, idForUpd} = useSelector((state)=>state.articleForm)
-  const dispatch = useDispatch()
+    const rootClasses = [cl.myModal];
 
-// const visible=trues
-useEffect(()=>{
-    setForm(inputs)
-},[inputs, type])
-  
-useEffect(()=>{
-console.log(type)
-},[])
+    const {inputs} = useSelector((state)=>state.articleForm)
+    const [form, setForm] = useState(inputs);
 
-useEffect(()=>{
-    console.log(form, type)
-},[form])
+    const { visible, type, idForUpd} = useSelector((state)=>state.articleForm)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        setForm(inputs)
+    },[inputs, type])
 
   if (visible) {
     rootClasses.push(cl.active);
   }
 
   const handleInput = (e)=>{
-    console.log(e.target.name, e.target.value)
     setForm({ ...form, [e.target.name]: e.target.value });
   }
   const handleSubmit = (e) => {
@@ -48,7 +32,6 @@ useEffect(()=>{
          e.target.reset();
     }
     else if (type === 'UPDATE'){
-        console.log(idForUpd, form, 'before upd')
         dispatch(updateThisArticle({idForUpd, form}))
         dispatch(setVisible())
     }
@@ -57,12 +40,11 @@ useEffect(()=>{
   return (
     <div className={rootClasses.join(' ')} onClick={() => dispatch(setVisible())}>
       <div className={cl.myModalContent} onClick={(e) => e.stopPropagation()}>
-      {type === 'CREATE' ? (
-                <h4>Добавить статью</h4>
-            ):(
-                <h4>Изменить статью</h4>
-            )}
-        
+        {type === 'CREATE' ? (
+                    <h4>Добавить статью</h4>
+                ):(
+                    <h4>Изменить статью</h4>
+                )}
         <form className={cl.loginForm} onSubmit={handleSubmit}>
 
           <input 
@@ -108,7 +90,6 @@ useEffect(()=>{
                 'Сохранить'
             )}
           </button>
-          {/* <ToastContainer /> */}
         </form>
 
       </div>

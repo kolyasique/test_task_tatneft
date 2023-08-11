@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   list: [],
@@ -120,12 +120,10 @@ const articleListSlice = createSlice({
   extraReducers: (builder) => {
 
     builder.addCase(getAllArticles.fulfilled, (state, action) => {
-      console.log('sucks')
       state.list = action.payload.sort((a,b)=>b.created_at - a.created_at)
       state.loading = 'succeeded'
     });
     builder.addCase(getAllArticles.pending, (state, action) => {
-      console.log('pend')
       state.loading = 'pending'
     });
     builder.addCase(getAllArticles.rejected, (state, action) => {
@@ -133,16 +131,13 @@ const articleListSlice = createSlice({
     });
 
     builder.addCase(getAllComments.fulfilled, (state, action) => {
-        console.log('sucks')
         state.commentList = action.payload.sort((a,b)=>b.created_at - a.created_at)
         state.loading = 'succeeded'
       });
     builder.addCase(getAllComments.pending, (state, action) => {
-    console.log('pend')
     state.loading = 'pending'
     });
     builder.addCase(getAllComments.rejected, (state, action) => {
-    console.log('fail')
     state.loading = 'failed'
     });
 
@@ -157,11 +152,9 @@ const articleListSlice = createSlice({
             state.loading = 'succeeded'
       });
       builder.addCase(createArticle.pending, (state, action) => {
-        console.log('pend')
         state.loading = 'pending'
       });
       builder.addCase(createArticle.rejected, (state, action) => {
-        console.log('fail')
         state.loading = 'failed'
       });
 
@@ -178,51 +171,39 @@ const articleListSlice = createSlice({
       })
      
       builder.addCase(updateThisArticle.pending, (state, action) => {
-        console.log('pend')
         state.loading = 'pending'
       });
       builder.addCase(updateThisArticle.rejected, (state, action) => {
-        console.log('fail')
         state.loading = 'failed'
       });
 
     builder.addCase(deleteThisArticle.fulfilled, (state, action) => {
-        console.log('sucks', action.payload)
         state.list=state.list.filter((el)=>el.id !== action.payload)
       });
       builder.addCase(deleteThisArticle.pending, (state, action) => {
-        console.log('pend')
         state.loading = 'pending'
       });
       builder.addCase(deleteThisArticle.rejected, (state, action) => {
-        console.log('fail')
         state.loading = 'failed'
       });
 
       builder.addCase(getChosenArticleInfo.fulfilled, (state, action) => {
-        console.log('sucks', action.payload)
         state.chosenArticleData=action.payload
       });
       builder.addCase(getChosenArticleInfo.pending, (state, action) => {
-        console.log('pend')
         state.loading = 'pending'
       });
       builder.addCase(getChosenArticleInfo.rejected, (state, action) => {
-        console.log('fail')
         state.loading = 'failed'
       });
 
       builder.addCase(addToChosenArticleComment.fulfilled, (state, action) => {
-        console.log('sucks', action.payload)
-        console.log(action.payload)
         state.chosenArticleComments.push(action.payload.data)
       });
       builder.addCase(addToChosenArticleComment.pending, (state, action) => {
-        console.log('pend')
         state.loading = 'pending'
       });
       builder.addCase(addToChosenArticleComment.rejected, (state, action) => {
-        console.log('fail')
         state.loading = 'failed'
       });
   },

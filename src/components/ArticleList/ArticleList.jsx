@@ -29,6 +29,7 @@ export default function ArticleList() {
     dispatch(getAllArticles())
   },[dispatch])
 
+  // В задании было указано, что реализоваать фильтр нужно в компоненте ArticleList
   useEffect(
     () => {
       fetch(`http://localhost:5000/posts?${`title_like=${query}`}&${`theme_like=${themeFilterQuery}`}&${`author_like=${authorFilterQuery}`}&${`_sort=created_at&_order=${dateFilterQuery}`}`, {
@@ -53,18 +54,18 @@ export default function ArticleList() {
 
   const handleFilter = (e) =>{
       switch (e.target.id) {
-            case 'author':
-              return (setAuthorFilterQuery(e.target.value));
-            case 'date':
-              if(e.target.value === 'Сначала новые'){
-                return (setDateFilterQuery('desc'),dispatch(setSortType('desc')))
-              }
-              else return (setDateFilterQuery('asc'),dispatch(setSortType('asc')));
-            case 'theme':
-              return (setThemeFilterQuery(e.target.value));;
-            default:
-              break
+        case 'author':
+          return (setAuthorFilterQuery(e.target.value));
+        case 'date':
+          if(e.target.value === 'Сначала новые'){
+            return (setDateFilterQuery('desc'),dispatch(setSortType('desc')))
           }
+          else return (setDateFilterQuery('asc'),dispatch(setSortType('asc')));
+        case 'theme':
+          return (setThemeFilterQuery(e.target.value));;
+        default:
+          break
+      }
   }
 
   return (
@@ -82,8 +83,8 @@ export default function ArticleList() {
         <div className={cl.panel_filter}>
 
           <div className={cl.panel_filter_div}>
-              <select ref={themeSelectRef} name="Тема" id="theme" className={cl.panel_filter_selector} onChange={handleFilter}>
-                  <option value="" disabled selected>Фильтр по теме</option>
+              <select ref={themeSelectRef} name="Тема" id="theme" defaultValue="" className={cl.panel_filter_selector} onChange={handleFilter}>
+                  <option value="" disabled>Фильтр по теме</option>
                       {themeFilterArr.map((el)=>
                         {
                           return (<option key={el.id} value={el.name}>{el.name}</option>)    
@@ -96,8 +97,8 @@ export default function ArticleList() {
           </div>
 
           <div className={cl.panel_filter_div} >
-              <select ref={authorSelectRef} name="Автор" id="author" className={cl.panel_filter_selector} onChange={handleFilter}>
-                <option value="" disabled selected>Фильтр по автору</option>
+              <select ref={authorSelectRef} name="Автор" id="author" defaultValue="" className={cl.panel_filter_selector} onChange={handleFilter}>
+                <option value="" disabled>Фильтр по автору</option>
                       {authorFilterArr.map((el)=>{
                       return (
                       <option key={el.id} value={el.name}>{el.name}</option>

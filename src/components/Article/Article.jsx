@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToChosenArticleComment, getAllArticles, getAllComments, getChosenArticleInfo, getInfoAboutThisArticle, getMyComments } from '../../store/articleListSlice'
-
-import cl from './style.module.scss'
+import { addToChosenArticleComment, getAllComments, getChosenArticleInfo, getMyComments } from '../../store/articleListSlice'
 import { useParams } from 'react-router'
 import { convertDate } from '../../helpers/dateConverter'
+
+import cl from './style.module.scss'
+
 export default function Article() {
     const dispatch = useDispatch()
     const {chosenArticleData, chosenArticleComments, commentList} = useSelector((state)=>state.articleList)
@@ -13,7 +14,6 @@ export default function Article() {
     useEffect(()=>{
         dispatch(getChosenArticleInfo(articleId))
         dispatch(getAllComments())
-        
     },[])
 
     useEffect(()=>{
@@ -22,27 +22,24 @@ export default function Article() {
 
     const handleAddComment = (e) =>{
         e.preventDefault()
-        console.log(e.target.name.value)
         dispatch(
             addToChosenArticleComment(
-                {
+            {
+                postId:articleId, 
+                form:{
+                    author:e.target.name.value, 
                     postId:articleId, 
-                    form:{
-                        author:e.target.name.value, 
-                        postId:articleId, 
-                        text:e.target.text.value
-                    }} 
-                    ))
-                    e.target.reset()
+                    text:e.target.text.value
+            }} 
+        ))
+        e.target.reset()
     }
-
-    console.log(chosenArticleData)
-  return (
-    <div className={cl.wrapper}>
+return (
+<div className={cl.wrapper}>
     <div className={cl.article_block}>
         <h1>{chosenArticleData.title}</h1>
         <div className={cl.article_block_textarea}>
-        {chosenArticleData.content}
+            {chosenArticleData.content}     
         </div>
         <div className={cl.article_block_additional}>
             <div>Автор: {chosenArticleData.author}</div>
@@ -54,11 +51,10 @@ export default function Article() {
             <div className={cl.comments_block}>
                 {chosenArticleComments.length >0 ? (
                     chosenArticleComments?.map((el)=>{
-                        return(<div className={cl.comment_element}>
-                            <div className={cl.comment_element_author}>{el.author} написал:</div>
-                            <div className={cl.comment_element_text}>{el.text}</div>
-                          
-                            </div>)
+                        return(<div className={cl.comment_element} key={el.id}>
+                                    <div className={cl.comment_element_author}>{el.author} написал:</div>
+                                    <div className={cl.comment_element_text}>{el.text}</div>
+                                </div>)
                         
                     })
                 ):(
@@ -73,6 +69,6 @@ export default function Article() {
                     <button type='submit' className={cl.add_comment_btn}>Добавить комментарий</button>
                 </form>
     </div>
-        </div>
+</div>
   )
 }
